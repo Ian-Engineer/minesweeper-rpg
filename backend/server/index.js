@@ -6,7 +6,11 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/', router);
+app.use('/users', router.users);
+
+app.use('/characters', router.characters)
+
+app.use('/scores', router.scores)
 
 app.listen(PORT, () => {
   console.log('listening on port: ', PORT)

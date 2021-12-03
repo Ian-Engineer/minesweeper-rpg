@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/index.js && node server/db/conn.js"
+    "react-dev": "webpack -d --watch",
+    "start": "nodemon backend/server/index.js && node backend/db/conn.js"
   },
   "repository": {
     "type": "git",
