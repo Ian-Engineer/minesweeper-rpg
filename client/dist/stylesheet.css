@@ -1,0 +1,24 @@
+.cells {
+  height: 100%;
+  width: 19px;
+  background-color: lightgray;
+  text-align: center;
+  display: inline-block;
+  margin: 0px;
+  border: 1px solid;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.row {
+  height: 19px;
+  width: 100%;
+  display: flex;
+}
+
+#board {
+  width: 1000px;
+  height: 476px;
+  border: 2px solid;
+  margin: auto;
+}
