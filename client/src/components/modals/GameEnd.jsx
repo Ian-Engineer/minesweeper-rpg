@@ -32,6 +32,7 @@ export default function GameEnd() {
           <input type='text' placeholder="Name:" value={username} onChange={(e) => {setUsername(e.target.value)}}/>
         </div>
           <button type='button' onClick={saveResults}>Save</button>
+          <button type="button" onClick={()=>{setGameEnd(false)}}>Cancel</button>
       </div>
     </Modal>
   )
