@@ -8,6 +8,8 @@ export default function Scoreboard(props) {
   //set state variables
   const [scores, setScores] = useState([])
 
+  const { gameEnd } = useContext(AppContext);
+
   function fetchData() {
     axios
     .get('scores')
@@ -19,7 +21,7 @@ export default function Scoreboard(props) {
   //use effect
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [gameEnd])
 
   //return
   return (
