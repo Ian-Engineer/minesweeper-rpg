@@ -11,7 +11,7 @@ scores.route("/").post(async function (req, res) {
     .collection('scores')
     .findOne({}, {sort: {'id': -1}}, (err, lastScore) => {
       if (err) {
-        throw err;
+        res.sendStatus(500);
       }
       const newScore = new Scores({
         id: !lastScore ? 1 : lastScore.id + 1,
@@ -25,7 +25,7 @@ scores.route("/").post(async function (req, res) {
       db
       .collection('scores')
       .insertOne(newScore, (err) => {
-        if (err) throw err
+        if (err) res.sendStatus(500);
         res.send()
       })
     })
