@@ -18,10 +18,12 @@ export default function App(props) {
     7: 2991,
     8: 4655,
   })
-  const [levelUpModal, setLevelUpModal] = useState(false)
-  const [lossModal, setLossModal] = useState(false)
-  const [winModal, setWinModal] = useState(false)
-  const [gameEnd, setGameEnd] = useState(true)
+  const [levelUpModal, setLevelUpModal] = useState(false);
+  const [lossModal, setLossModal] = useState(false);
+  const [winModal, setWinModal] = useState(false);
+  const [gameEnd, setGameEnd] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [time, setTime] = useState('');
 
   useEffect(() => {
 
@@ -43,7 +45,11 @@ export default function App(props) {
       winModal,
       lossModal,
       gameEnd,
-      setGameEnd
+      setGameEnd,
+      started, 
+      setStarted,
+      setTime,
+      time
     }}>
       {props.children()}
     </AppContext.Provider>

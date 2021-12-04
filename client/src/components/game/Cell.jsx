@@ -9,7 +9,7 @@ import fight from "../../helper-functions/fight.js";
 export default function Cell(props) {
   // grab context from the board and player stats
   const { gameBoard, start, character, height, width, play, setPlay } = useContext(BoardContext)
-  const { setHealth, setLevel, setExp, health, level, exp, levelsExp, setLevelUpModal, setWinModal, setLossModal, levelUpModal, setGameEnd } = useContext(AppContext)
+  const { setHealth, setLevel, setExp, health, level, exp, levelsExp, setLevelUpModal, setWinModal, setLossModal, levelUpModal, setGameEnd, started, setStarted } = useContext(AppContext)
 
   // set state variables
   const [content, setContent] = useState('');
@@ -53,6 +53,12 @@ export default function Cell(props) {
 
   function clickOnCell() {
     if (play) {
+      // if game has not started yet
+      // if (started === false) {
+      //   // start the timer
+      //   setStarted(true)
+      // }
+      if (!display) {
       if (cellClass !== 'shownCells') {
         cellClass="shownCells";
         setDisplay(true);
@@ -73,6 +79,7 @@ export default function Cell(props) {
           if (outcome.health === 0) {
             setPlay(false);
             setGameEnd(true);
+            setLossModal(true);
           } else if ( cellValue === 9 ) {
             setPlay(false)
             setGameEnd(true)
@@ -87,8 +94,9 @@ export default function Cell(props) {
         }
   
         // add the class to the element so it is shown
-        document.getElementById(`row${Number(props.row)}col${Number(props.col)}`).classList.add(cellClass)
+        document.getElementById(`row${Number(props.row)}col${Number(props.col)}`).classList.add("shownCells")
       }
+    }
     }
   }
 

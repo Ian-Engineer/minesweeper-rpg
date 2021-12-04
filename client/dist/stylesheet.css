@@ -34,9 +34,16 @@
   border: 2px solid;
   margin: auto;
   margin-top: 25px;
-  font-size: 50px;
+  font-size: 40px;
   display: flex;
   justify-content: space-between;
+}
+
+#playbuttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #levelupmodal {
@@ -73,14 +80,29 @@
 
 
 #gameendmodal {
-  position: relative;
-  border: solid 5px black;
+  position: absolute;
+  border: solid 2px black;
   /* border-radius: 50px; */
-  height: 50px;
+  height: 78px;
+  width: 1000px;
   background: white;
-  padding-left: 50px;
-  padding-right: 50px;
-  text-align: left;
-  overflow-y:auto;
+  text-align: center;
   margin: auto;
+  top: 25px;
+  font-size: 21px;
+  background-color: cadetblue;
+}
+
+#recordData {
+
+}
+
+#scoreboard-container {
+  width: 1000px;
+  margin: auto;
+  margin-top: 25px;
+}
+
+table {
+  width: 100%;
 }

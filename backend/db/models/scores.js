@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 
 const scoresSchema = new mongoose.Schema({
   id: Number,
-  username_id: Number,
+  username: String,
+  level: Number,
   time: Number,
-  damage: Number,
+  health: Number,
   character_id: Number
 })
 

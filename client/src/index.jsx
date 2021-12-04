@@ -11,7 +11,7 @@ ReactDOM.render(
       <div id="mainContainer">
         <Player/>
         <Board/>
-        {/* <Scoreboard/> */}
+        <Scoreboard/>
       </div>
     )}
   </App>,

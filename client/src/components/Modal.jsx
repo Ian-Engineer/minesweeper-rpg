@@ -16,7 +16,6 @@ export default class Modal extends React.Component {
   }
   
   render() {
-    console.log(this.props)
     if (this.props.value) { // conditional rendering - if display is true
       this.el.setAttribute('class', 'ModalForm');
       return (
