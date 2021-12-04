@@ -10,36 +10,49 @@ export default function Board(props) {
   // set state variables
   const [gameBoard, setGameBoard] = useState({});
   const [rows, setRows] = useState([]);
-  const [character, setCharacter] = useState('fighter');
-  const [rogueStart, setRogueStart] = useState([]);
-  const [normalStart, setNormalStart] = useState([]);
-  const [play, setPlay] = useState(false);
+  const [character, setCharacter] = useState(0);
+  const [start, setStart] = useState([]);
+  const [play, setPlay] = useState(true);
+  const [height, setHeight] = useState(25);
+  const [width, setWidth] = useState(50);
   
   // use effect function for rerendering
   useEffect(() => {
     // run function defining game board
-    const startInfo = buildBoard()
+    const startInfo = buildBoard(height, width, character)
     setGameBoard(startInfo.gameBoard)
     setRows(Object.keys(startInfo.gameBoard))
+    setStart(startInfo.startPosition)
   }, [])
+
+  if (play) {
+    var board = (
+      <BoardContext.Provider value = {{
+        gameBoard,
+        character,
+        start,
+        height,
+        width
+        }}>
+       <div id="board">
+         {rows.map((row, index) => {
+           return (
+             <Rows row={row} key={index}/>
+           )
+         })}
+       </div>
+     </BoardContext.Provider>
+    )
+  } else {
+    var board = (
+      <button type="button" onClick={()=>{setPlay(true)}}>Play?</button>
+    )
+  }
 
   // return the divs to be rendered
   return (
     <div id="boardContainer">
-    <BoardContext.Provider value = {{
-       gameBoard,
-       character,
-       rogueStart,
-       normalStart
-       }}>
-      <div id="board">
-        {rows.map((row, index) => {
-          return (
-            <Rows row={row} key={index}/>
-          )
-        })}
-      </div>
-    </BoardContext.Provider>
+      {board}
     </div>
   )
 

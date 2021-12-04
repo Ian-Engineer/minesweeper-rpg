@@ -5,9 +5,13 @@
   text-align: center;
   display: inline-block;
   margin: 0px;
-  border: 1px solid;
+  border: 1px solid black;
   font-weight: bold;
   font-size: 16px;
+}
+
+.shownCells {
+  background-color: white;
 }
 
 .row {

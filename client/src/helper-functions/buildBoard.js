@@ -1,16 +1,14 @@
 import monsterLocations from "./monsterLocations.js"
 import checkSurroundingMonsters from "./checkSurroundingMonsters.js"
 
-export default function buildBoard(height, width) {
+export default function buildBoard(height, width, character) {
   // default matrix 25 by 50
   height ? null : height = 25
   width ? null : width = 50
 
   // run function to determine monster locations with height and width
   var gameBoard = monsterLocations(height, width)
-  var normalStart = [];
-  var rogueStart = [];
-
+  var startPositions = [];
 
   // iterate through height
   for (var row = 1; row <= height; row ++) {
@@ -22,10 +20,12 @@ export default function buildBoard(height, width) {
         var count = checkSurroundingMonsters(gameBoard, row, col, height, width);
         // if value is 0, input null at row and column
         if (count === 0) {
-          gameBoard[row] = { ...gameBoard[row], [col]: null}
-          rogueStart.push([row,col])
+          gameBoard[row] = { ...gameBoard[row], [col]: `${0}`}
+          if (character === 0) {startPositions.push([row,col])}
         } else {
-          count === 1 ? normalStart.push([row,col]) : null;
+          if (character !== 0) {
+            count === 1 ? startPositions.push([row,col]) : null;
+          }
           gameBoard[row] = { ...gameBoard[row], [col]: `${count}`}
         }
         // else input value at row and column
@@ -33,11 +33,13 @@ export default function buildBoard(height, width) {
     }
   }
 
+  // determine random starting location based on values in start array
+  const startPosition = startPositions[Math.ceil(Math.random()*startPositions.length)]
   /**
    * output is an object containing:
    * the game board
    * the starting position for single cell
    * the starting position for open area
    */
-  return { gameBoard, normalStart, rogueStart }
+  return { gameBoard, startPosition }
 }
