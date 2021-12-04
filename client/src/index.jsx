@@ -9,9 +9,9 @@ ReactDOM.render(
   <App>
     {() => ( // this line gives the ability to pass properties to each child
       <div id="mainContainer">
+        <Player/>
         <Board/>
-        {/* <Player/>
-        <Scoreboard/> */}
+        {/* <Scoreboard/> */}
       </div>
     )}
   </App>,

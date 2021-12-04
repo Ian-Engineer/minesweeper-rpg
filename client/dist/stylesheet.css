@@ -25,4 +25,62 @@
   height: 476px;
   border: 2px solid;
   margin: auto;
+  margin-top: 25px;
+}
+
+#playerInfo {
+  width: 1000px;
+  height: 50px;
+  border: 2px solid;
+  margin: auto;
+  margin-top: 25px;
+  font-size: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#levelupmodal {
+  position: absolute;
+  border: solid 2px black;
+  /* border-radius: 50px; */
+  height: 24px;
+  width: 1000px;
+  background: white;
+  text-align: center;
+  margin: auto;
+  top: 78px;
+  font-size: 21px;
+  background-color: cadetblue;
+}
+
+.ModalForm {
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation-name: animatetop;
+  animation-duration: 0.5s;
+}
+
+@keyframes animatetop {
+  from {top: -500px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+
+
+#gameendmodal {
+  position: relative;
+  border: solid 5px black;
+  /* border-radius: 50px; */
+  height: 50px;
+  background: white;
+  padding-left: 50px;
+  padding-right: 50px;
+  text-align: left;
+  overflow-y:auto;
+  margin: auto;
 }

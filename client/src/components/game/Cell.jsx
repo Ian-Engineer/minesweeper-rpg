@@ -4,14 +4,18 @@ import { AppContext } from "../App.jsx";
 import buildBoard from "../../helper-functions/buildBoard.js";
 import { BoardContext } from './Board.jsx'
 import connectedEmpties from "../../helper-functions/connectedEmpties.js";
+import fight from "../../helper-functions/fight.js";
 
 export default function Cell(props) {
+  // grab context from the board and player stats
+  const { gameBoard, start, character, height, width, play, setPlay } = useContext(BoardContext)
+  const { setHealth, setLevel, setExp, health, level, exp, levelsExp, setLevelUpModal, setWinModal, setLossModal, levelUpModal, setGameEnd } = useContext(AppContext)
+
   // set state variables
   const [content, setContent] = useState('');
   const [display, setDisplay] = useState(false);
+  const [cellValue, setCellValue] = useState(gameBoard[props.row][props.col])
 
-  // grab context from the board
-  const { gameBoard, start, character, height, width } = useContext(BoardContext)
 
   // use effect function for rerendering
   // return the divs to be rendered
@@ -20,7 +24,7 @@ export default function Cell(props) {
   useEffect(() => {
     // if (cellClass === 'shownCells') {
     if (display) {
-      setContent(gameBoard[props.row][props.col])
+      setContent(cellValue)
     }
     // determine if this is the starting position
     if (Number(props.row) === start[0] && Number(props.col) === start[1]) {
@@ -33,9 +37,9 @@ export default function Cell(props) {
   var style = {};
   var cellClass = '';
 
-  if (typeof(gameBoard[props.row][props.col]) === 'number' && display) {
+  if (typeof(cellValue) === 'number' && display) {
     style = {color: 'darkred', backgroundColor: 'darksalmon'} 
-  } else if (gameBoard[props.row][props.col] === '0') {
+  } else if (cellValue === '0') {
     style = {color: 'transparent'}
   } else if (!display && typeof(content) === 'number') {
     style = {color: 'darkgreen', backgroundColor: 'palegreen'}
@@ -48,35 +52,57 @@ export default function Cell(props) {
     style = {...style, bordercolor: "transparent"}
 
   function clickOnCell() {
-    if (cellClass !== 'shownCells') {
-      // if this is an empty cell
-      if (gameBoard[props.row][props.col] === '0') {
-        // iterate through adjacent rows
-        for (var i = -1; i <= 1; i ++) {
-          for (var j = -1; j <= 1; j ++) {
-            if (Number(props.row) + i > 0 && Number(props.row) + i <= height && Number(props.col) + j > 0 && Number(props.col) +j <= width) {
-              document.getElementById(`row${Number(props.row) + i}col${Number(props.col) + j}`).click()
+    if (play) {
+      if (cellClass !== 'shownCells') {
+        cellClass="shownCells";
+        setDisplay(true);
+        // if this is an empty cell
+        if (cellValue === '0') {
+          // iterate through adjacent rows
+          for (var i = -1; i <= 1; i ++) {
+            for (var j = -1; j <= 1; j ++) {
+              if (Number(props.row) + i > 0 && Number(props.row) + i <= height && Number(props.col) + j > 0 && Number(props.col) +j <= width) {
+                document.getElementById(`row${Number(props.row) + i}col${Number(props.col) + j}`).click()
+              }
             }
           }
+        } else if (typeof(cellValue) === 'number') { // means a monster was clicked on
+          //invoke fight with monster level and player level
+          var outcome = fight(cellValue, { level, health })
+          setHealth(outcome.health)
+          if (outcome.health === 0) {
+            setPlay(false);
+            setGameEnd(true);
+          } else if ( cellValue === 9 ) {
+            setPlay(false)
+            setGameEnd(true)
+            setWinModal(true)
+          }
+          setExp(exp + outcome.exp)
+          if (exp + outcome.exp > levelsExp[level]) {
+            setLevel(level + 1);
+            setLevelUpModal(!levelUpModal)
+            setTimeout(()=>{setLevelUpModal(false)}, 3000)
+          }
         }
-      } else if (gameBoard[props.row][props.col] === '1') {
-        alert('YOU WON')
+  
+        // add the class to the element so it is shown
+        document.getElementById(`row${Number(props.row)}col${Number(props.col)}`).classList.add(cellClass)
       }
-      document.getElementById(`row${Number(props.row)}col${Number(props.col)}`).classList.add('shownCells')
-      cellClass="shownCells";
-      setDisplay(true);
     }
   }
 
   function rightClickOnCell(e) {
-    if (!display) {
-      e.preventDefault()
-      if(content === '') {
-        setContent(1)
-      } else if (content === 9) {
-        setContent('')
-      } else {
-        setContent(content + 1)
+    e.preventDefault()
+    if (play) {
+      if (!display) {
+        if(content === '') {
+          setContent(1)
+        } else if (content === 9) {
+          setContent('')
+        } else {
+          setContent(content + 1)
+        }
       }
     }
   }

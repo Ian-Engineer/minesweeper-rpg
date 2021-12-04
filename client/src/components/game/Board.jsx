@@ -3,6 +3,9 @@ import axios from "axios";
 import { AppContext } from "../App.jsx";
 import buildBoard from "../../helper-functions/buildBoard.js";
 import Rows from './Rows.jsx'
+import LevelUp from "../modals/LevelUp.jsx";
+import GameEnd from "../modals/GameEnd.jsx"
+
 
 export const BoardContext = React.createContext();
 
@@ -15,6 +18,8 @@ export default function Board(props) {
   const [play, setPlay] = useState(true);
   const [height, setHeight] = useState(25);
   const [width, setWidth] = useState(50);
+
+  const { setHealth, setLevel, setExp, health, level, exp, levelUpModal } = useContext(AppContext)
   
   // use effect function for rerendering
   useEffect(() => {
@@ -25,14 +30,17 @@ export default function Board(props) {
     setStart(startInfo.startPosition)
   }, [])
 
-  if (play) {
-    var board = (
+  // return the divs to be rendered
+  return (
+    <div id="boardContainer">
       <BoardContext.Provider value = {{
         gameBoard,
         character,
         start,
         height,
-        width
+        width,
+        play,
+        setPlay
         }}>
        <div id="board">
          {rows.map((row, index) => {
@@ -41,18 +49,9 @@ export default function Board(props) {
            )
          })}
        </div>
+     <LevelUp />
+     <GameEnd />
      </BoardContext.Provider>
-    )
-  } else {
-    var board = (
-      <button type="button" onClick={()=>{setPlay(true)}}>Play?</button>
-    )
-  }
-
-  // return the divs to be rendered
-  return (
-    <div id="boardContainer">
-      {board}
     </div>
   )
 
