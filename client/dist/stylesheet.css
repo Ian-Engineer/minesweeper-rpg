@@ -1,108 +1,39 @@
-.cells {
-  height: 100%;
-  width: 19px;
-  background-color: lightgray;
-  text-align: center;
-  display: inline-block;
-  margin: 0px;
-  border: 1px solid black;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.shownCells {
-  background-color: white;
-}
-
-.row {
-  height: 19px;
-  width: 100%;
-  display: flex;
-}
-
-#board {
-  width: 1000px;
-  height: 476px;
-  border: 2px solid;
-  margin: auto;
-  margin-top: 25px;
-}
-
-#playerInfo {
-  width: 1000px;
+[class*="gameinfocol-"] {
   height: 50px;
   border: 2px solid;
   margin: auto;
   margin-top: 25px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+}
+
+.gameinfocol-1 {
   font-size: 40px;
-  display: flex;
-  justify-content: space-between;
 }
 
-#playbuttons {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+@media only screen and (min-width: 600px) {
+  #gameinfo {
+    width: 100%;
+    display: inline-block;
+  }
 
-#levelupmodal {
-  position: absolute;
-  border: solid 2px black;
-  /* border-radius: 50px; */
-  height: 24px;
-  width: 1000px;
-  background: white;
-  text-align: center;
-  margin: auto;
-  top: 78px;
-  font-size: 21px;
-  background-color: cadetblue;
-}
+  .gameinfocol-1 {
+    height: 50px;
+    width: 20%;
+    border: 2px solid;
+    font-size: 40px;
+    justify-content: center;
+  }
 
-.ModalForm {
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation-name: animatetop;
-  animation-duration: 0.5s;
-}
+  .gameinfocol-2 {
+    height: 50px;
+    width: 80%;
+    border: 2px solid;
+    font-size: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
 
-@keyframes animatetop {
-  from {top: -500px; opacity: 0}
-  to {top: 0; opacity: 1}
-}
-
-
-#gameendmodal {
-  position: relative;
-  border: solid 2px black;
-  /* border-radius: 50px; */
-  height: 78px;
-  width: 1000px;
-  background: white;
-  text-align: center;
-  margin: auto;
-  top: 25px;
-  font-size: 21px;
-  background-color: cadetblue;
-}
-
-#recordData {
-
-}
-
-#scoreboard-container {
-  width: 1000px;
-  margin: auto;
-  margin-top: 25px;
-}
-
-table {
-  width: 100%;
 }

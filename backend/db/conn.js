@@ -13,7 +13,7 @@
 const mongoose = require('mongoose');
 const dbName = 'minesweeper-rpg';
 // const url = `mongodb://localhost:27017/${dbName}`;
-const url = process.env.MONGODB_URI
+const url = `mongodb://localhost:27017/${dbName}`
 
 mongoose.connect(url, {
   useNewUrlParser: true,

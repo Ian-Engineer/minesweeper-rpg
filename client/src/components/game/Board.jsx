@@ -19,7 +19,7 @@ export default function Board(props) {
   const [height, setHeight] = useState(25);
   const [width, setWidth] = useState(50);
 
-  const { setHealth, setLevel, setExp, health, level, exp, levelUpModal } = useContext(AppContext)
+  const { setHealth, setLevel, setExp, health, level, exp, levelUpModal, started } = useContext(AppContext)
   
   // use effect function for rerendering
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Board(props) {
   }, [])
 
   // return the divs to be rendered
-  return (
+  return started ? 
     <div id="boardContainer">
       <BoardContext.Provider value = {{
         gameBoard,
@@ -53,6 +53,6 @@ export default function Board(props) {
      <GameEnd />
      </BoardContext.Provider>
     </div>
-  )
+    : <div></div> 
 
 }

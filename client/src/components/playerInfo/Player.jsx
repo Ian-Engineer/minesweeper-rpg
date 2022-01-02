@@ -8,7 +8,7 @@ export const PlayerContext = React.createContext()
 export default function Player(props) {
   // set state variables
 
-  const { setHealth, setLevel, setExp, health, level, exp, levelsExp, gameEnd, started, setTime } = useContext(AppContext)
+  const { setHealth, setLevel, setExp, health, level, exp, levelsExp, gameEnd, started, setTime, setStarted } = useContext(AppContext)
 
   const {
     seconds,
@@ -18,6 +18,17 @@ export default function Player(props) {
     pause,
     reset,
   } = useStopwatch({ autoStart: true });
+
+  function play() {
+    setStarted(true)
+  }
+
+  function playEnter(e) {
+    e.target.style.background = 'lightgrey';
+  }
+  function playLeave(e) {
+    e.target.style.background = 'transparent';
+  }
 
   // use effect
   useEffect(() => {
@@ -30,29 +41,35 @@ export default function Player(props) {
 
   // return
   return (
-    <>
-    <div id="playerInfo">
-      <div id="health">
-        {`Health: ${health}`}
-      </div>
-      <div id="level">
-        {`Level: ${level}`}
-      </div>
-      <div>
-        {`Experience: ${exp}/${levelsExp[level] + 1}`}
-      </div>
-      <div>
-        <div style={{textAlign: 'center'}}>
-        <div>
-          <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+    <div id='gameinfo'>
+        <div class='gameinfocol-1'>
+          {started ? (<><span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span></>) : <div style={{'width':'100%', textAlign:"center"}} onClick={play} onMouseEnter={playEnter} onMouseLeave={playLeave}>Play!</div>}
         </div>
-      </div>
+    <div class="gameinfocol-2">
+      {started ? (
+        <>
+          <div id="health">
+          {`Health: ${health}`}
+          </div>
+          <div id="level">
+            {`Level: ${level}`}
+          </div>
+          <div>
+            {`Experience: ${exp}/${levelsExp[level] + 1}`}
+          </div>
+          <div>
+            <div style={{textAlign: 'center'}}>
+          </div>
     </div>
+        </> 
+      ):
+      (<div>test</div>)
+      }
           {/* <div id="playbuttons">
               <button onClick={start}>Start</button>
               <button onClick={reset}>Reset</button>
           </div> */}
     </div>
-    </>
+    </div>
   )
 }

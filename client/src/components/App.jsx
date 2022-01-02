@@ -24,6 +24,7 @@ export default function App(props) {
   const [gameEnd, setGameEnd] = useState(false);
   const [started, setStarted] = useState(false);
   const [time, setTime] = useState('');
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
 
